@@ -11,7 +11,7 @@ const port = 3000;
 const secretKeyJWT = "asdasdsadasdasdasdsa";
 
 // 🔐 Allowed frontend origin (change IP as per your machine)
-const FRONTEND_ORIGIN = "http://192.168.29.241:5173";
+const FRONTEND_ORIGIN = "http://localhost:5173";
 
 // 🧩 Middleware Setup
 app.use(
@@ -47,8 +47,8 @@ app.get("/login", (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      secure: true, // Set to true if using HTTPS
-      sameSite: "none",
+      secure: false, // Set to true if using HTTPS
+      sameSite: "lax",
     })
     .json({ message: "✅ Login Successful", token });
 });
@@ -128,6 +128,6 @@ io.on("connection", (socket) => {
 });
 
 // 🚀 Server start (binding to all interfaces)
-server.listen(port, "0.0.0.0", () => {
-  console.log(`🚀 Server listening on http://0.0.0.0:${port}`);
+server.listen(port, "localhost",() => {
+  console.log(`🚀 Server listening on http://localhost:${port}`);
 });
